@@ -79,9 +79,8 @@ Note : This will be update soon, because the contstraint and data type
 | username    | VARCHAR(255) | NOT NULL, UNIQUE            | Username for the user            |
 | password    | VARCHAR(255) | NOT NULL                    | Password for the user            |
 
-> The issues will be fixed in the updated commit
+> The issues and features will be fixed in the updated commit
 
 - [ ] Consistency Naming Convention
 - [x] Login Feature (Optional)
-- [ ] Upload Suspect Photo Feature
-- [ ] When double click the selected row, it can show modal that shows criminal details
+- [x] When double click the selected row, it can show modal that shows criminal details

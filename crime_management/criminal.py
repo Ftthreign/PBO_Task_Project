@@ -348,8 +348,10 @@ class Criminal:
         self.criminal_table.bind("<ButtonRelease>", self.get_cursor)
 
         self.fetch_data()
+        self.criminal_table.bind("<Double-1>", self.display_criminal_details)
 
     # Add Function
+
     def add_data(self):
         if self.var_case_id.get() == "":
             messagebox.showerror('Error', 'All Field are Required')
@@ -544,6 +546,49 @@ class Criminal:
                 conn.close()
             except Exception as es:
                 messagebox.showerror('Error', f'Due To{str(es)}')
+
+    def display_criminal_details(self, event):
+        selected_row = self.criminal_table.selection()[0]
+        criminal_details = self.criminal_table.item(selected_row, 'values')
+
+        details_window = Toplevel(self.root)
+        details_window.title("Detail Kriminal")
+        details_window.geometry('400x400')
+
+        canvas = Canvas(details_window)
+        canvas.pack(side='left', fill='both', expand=True)
+
+        scrollbar = ttk.Scrollbar(
+            details_window, orient='vertical', command=canvas.yview)
+        scrollbar.pack(side='right', fill='y')
+
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        details_frame = Frame(canvas)
+
+        canvas.create_window((0, 0), window=details_frame, anchor='nw')
+
+        labels = ['Case ID', 'No. Crime', 'Nama Kriminal', 'Nickname', 'Tanggal Ditangkap', 'Tanggal Kriminal',
+                  'Alamat', 'Umur', 'Pekerjaan', 'Tanda Lahir', 'Jenis Kejahatan', 'Nama Ayah', 'Jenis Kelamin', 'DPO']
+
+        for i, detail in enumerate(criminal_details):
+            label_text = labels[i] + ': '
+            if i == 0:
+                label = Label(details_frame, text=label_text +
+                              detail, font=('Roboto', 20, 'bold'), fg='red')
+            else:
+                if detail:
+                    label = Label(details_frame, text=label_text +
+                                  detail, font=('Roboto', 14))
+                else:
+                    label = Label(details_frame, text=label_text +
+                                  '-', font=('Roboto', 14))
+            label.grid(row=i, column=0, padx=10, pady=5, sticky='w')
+
+        details_frame.bind('<Configure>', lambda event, canvas=canvas: canvas.configure(
+            scrollregion=canvas.bbox('all')))
+
+        details_window.mainloop()
 
 
 if __name__ == "__main__":
