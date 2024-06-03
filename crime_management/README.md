@@ -38,11 +38,21 @@ CREATE TABLE criminal (
     wanted VARCHAR(45) NULL,
     PRIMARY KEY (Case_id)
 );
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+
 ```
 
 Note : This will be update soon, because the contstraint and data type
 
 > criminal table will be like this
+
+- criminal table
 
 | Column Name   | Data Type   | Constraints           | Description                     |
 | ------------- | ----------- | --------------------- | ------------------------------- |
@@ -61,9 +71,17 @@ Note : This will be update soon, because the contstraint and data type
 | gender        | VARCHAR(45) | NULL                  | Gender of the criminal          |
 | wanted        | VARCHAR(45) | NULL                  | Whether the criminal is wanted  |
 
+- users Table
+
+| Column Name | Data Type    | Constraints                 | Description                      |
+| ----------- | ------------ | --------------------------- | -------------------------------- |
+| id          | INT          | AUTO_INCREMENT, PRIMARY KEY | Unique identifier for each Users |
+| username    | VARCHAR(255) | NOT NULL, UNIQUE            | Username for the user            |
+| password    | VARCHAR(255) | NOT NULL                    | Password for the user            |
+
 > The issues will be fixed in the updated commit
 
 - [ ] Consistency Naming Convention
-- [ ] Login Feature (Optional)
+- [x] Login Feature (Optional)
 - [ ] Upload Suspect Photo Feature
 - [ ] When double click the selected row, it can show modal that shows criminal details

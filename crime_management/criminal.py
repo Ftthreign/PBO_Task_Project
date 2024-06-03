@@ -3,6 +3,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import mysql.connector
 from tkinter import messagebox
+from login_handler import LoginWindow
 
 
 class Criminal:
@@ -546,6 +547,14 @@ class Criminal:
 
 
 if __name__ == "__main__":
-    root = Tk()
-    obj = Criminal(root)
-    root.mainloop()
+
+    login_root = Tk()
+    login_window = LoginWindow(login_root)
+    login_root.mainloop()
+
+    if login_window.login_successful:
+        app_root = Tk()
+        criminal_app = Criminal(app_root)
+        app_root.mainloop()
+    else:
+        messagebox.showinfo('Login Fail', 'Login failed ')
