@@ -359,7 +359,7 @@ class Criminal:
         else:
             try:
                 conn = mysql.connector.connect(
-                    host='localhost', port='3306', username='root', password='', database='crime_management_db')
+                    host='147.139.195.118', port='3306', username='admin', password='SOK1PSTIC', database='crime_management_db')
                 my_cursor = conn.cursor()
                 my_cursor.execute(INSERT_CRIMINAL_QUERY, (
 
@@ -391,7 +391,7 @@ class Criminal:
     # fetch data
     def fetch_data(self):
         conn = mysql.connector.connect(
-            host='localhost', port='3306', username='root', password='', database='crime_management_db')
+            host='147.139.195.118', port='3306', username='admin', password='SOK1PSTIC', database='crime_management_db')
         my_cursor = conn.cursor()
         my_cursor.execute(SELECT_ALL_CRIMINAL_COLUMN_QUERY)
         data = my_cursor.fetchall()
@@ -437,7 +437,7 @@ class Criminal:
                     'Update', 'Are you sure update this criminal record')
                 if update > 0:
                     conn = mysql.connector.connect(
-                        host='localhost', port='3306', username='root', password='', database='crime_management_db')
+                        host='147.139.195.118', port='3306', username='admin', password='SOK1PSTIC', database='crime_management_db')
                     my_cursor = conn.cursor()
                     my_cursor.execute(UPDATE_CRIMINAL_QUERY, (
                         self.var_criminal_no.get(),
@@ -478,7 +478,7 @@ class Criminal:
                     'hapus', 'Are you sure delete this criminal record')
                 if hapus > 0:
                     conn = mysql.connector.connect(
-                        host='localhost', port='3306', username='root', password='', database='crime_management_db')
+                        host='147.139.195.118', port='3306', username='admin', password='SOK1PSTIC', database='crime_management_db')
                     my_cursor = conn.cursor()
                     sql = DELETE_CRIMINAL_QUERY
                     value = (self.var_case_id.get(),)
@@ -519,7 +519,7 @@ class Criminal:
         else:
             try:
                 conn = mysql.connector.connect(
-                    host='localhost', port='3306', username='root', password='', database='crime_management_db')
+                    host='147.139.195.118', port='3306', username='admin', password='SOK1PSTIC', database='crime_management_db')
                 my_cursor = conn.cursor()
                 if self.var_com_search.get() != 'Select Option':
                     my_cursor.execute(SELECT_CRIMINAL_TABLE_PRIMARY_COLUMN + str(

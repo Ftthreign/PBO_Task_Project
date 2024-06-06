@@ -55,10 +55,7 @@ class LoginWindow:
         self.root.bind('<Return>', self.login)
 
         self.conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            port='3306',
-            database="crime_management_db"
+            host='147.139.195.118', port='3306', username='admin', password='SOK1PSTIC', database='crime_management_db'
         )
         self.cursor = self.conn.cursor()
 
