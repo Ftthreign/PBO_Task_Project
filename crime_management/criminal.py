@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import mysql.connector
 from tkinter import messagebox
 from login_handler import LoginWindow
+from queries import *
 
 
 class Criminal:
@@ -360,7 +361,7 @@ class Criminal:
                 conn = mysql.connector.connect(
                     host='localhost', port='3306', username='root', password='', database='crime_management_db')
                 my_cursor = conn.cursor()
-                my_cursor.execute('insert into criminal values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
+                my_cursor.execute(INSERT_CRIMINAL_QUERY, (
 
                     self.var_case_id.get(),
                     self.var_criminal_no.get(),
@@ -383,7 +384,7 @@ class Criminal:
                 self.clear_data()
                 conn.close()
                 messagebox.showinfo(
-                    'Success', 'Criminal record has been added')
+                    'Success', 'Data Kriminal Berhasil Diinputkan')
             except Exception as es:
                 messagebox.showerror('Error', f'Due To{str(es)}')
 
@@ -392,7 +393,7 @@ class Criminal:
         conn = mysql.connector.connect(
             host='localhost', port='3306', username='root', password='', database='crime_management_db')
         my_cursor = conn.cursor()
-        my_cursor.execute('select * from criminal')
+        my_cursor.execute(SELECT_ALL_CRIMINAL_COLUMN_QUERY)
         data = my_cursor.fetchall()
         if len(data) != 0:
             self.criminal_table.delete(*self.criminal_table.get_children())
@@ -406,6 +407,10 @@ class Criminal:
         cursor_row = self.criminal_table.focus()
         content = self.criminal_table.item(cursor_row)
         data = content['values']
+
+        if not data:
+            messagebox.showinfo('Warning', 'Data kosong')
+            return
 
         self.var_case_id.set(data[0])
         self.var_criminal_no.set(data[1])
@@ -434,24 +439,7 @@ class Criminal:
                     conn = mysql.connector.connect(
                         host='localhost', port='3306', username='root', password='', database='crime_management_db')
                     my_cursor = conn.cursor()
-                    my_cursor.execute('''
-                                        UPDATE criminal 
-                                        SET 
-                                            Criminal_no=%s,
-                                            Criminal_name=%s,
-                                            Nick_name=%s,
-                                            arrest_date=%s,
-                                            dateOfcrime=%s,
-                                            address=%s,
-                                            age=%s,
-                                            occupation=%s,
-                                            BirthMark=%s,
-                                            crimeType=%s,
-                                            fatherName=%s,
-                                            gender=%s,
-                                            wanted=%s 
-                                        WHERE Case_id=%s
-''', (
+                    my_cursor.execute(UPDATE_CRIMINAL_QUERY, (
                         self.var_criminal_no.get(),
                         self.var_criminal_name.get(),
                         self.var_nickname.get(),
@@ -465,7 +453,7 @@ class Criminal:
                         self.var_father_name.get(),
                         self.var_gender.get(),
                         self.var_wanted.get(),
-                        self.var_case_id.get()  # Case_id sebagai kriteria di WHERE clause
+                        self.var_case_id.get()
                     ))
 
                 else:
@@ -492,7 +480,7 @@ class Criminal:
                     conn = mysql.connector.connect(
                         host='localhost', port='3306', username='root', password='', database='crime_management_db')
                     my_cursor = conn.cursor()
-                    sql = 'delete from criminal where Case_id=%s'
+                    sql = DELETE_CRIMINAL_QUERY
                     value = (self.var_case_id.get(),)
                     my_cursor.execute(sql, value)
                 else:
@@ -534,7 +522,7 @@ class Criminal:
                     host='localhost', port='3306', username='root', password='', database='crime_management_db')
                 my_cursor = conn.cursor()
                 if self.var_com_search.get() != 'Select Option':
-                    my_cursor.execute('select * from criminal where ' + str(
+                    my_cursor.execute(SELECT_CRIMINAL_TABLE_PRIMARY_COLUMN + str(
                         self.var_com_search.get())+" LIKE'%"+str(self.var_search.get()+"%' "))
                 rows = my_cursor.fetchall()
                 if len(rows) != 0:

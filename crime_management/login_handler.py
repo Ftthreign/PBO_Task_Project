@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 from PIL import Image, ImageTk
 import mysql.connector
+from queries import *
 
 
 class LoginWindow:
@@ -66,7 +67,7 @@ class LoginWindow:
         password = self.entry_password.get()
 
         self.cursor.execute(
-            "SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
+            SELECT_USER_TABLE_WITH_WHERE, (username, password))
         user = self.cursor.fetchone()
 
         if user:
@@ -115,7 +116,7 @@ class LoginWindow:
                 "Registrasi Gagal", "Username sudah ada, coba gunakan username yang lain")
         else:
             self.cursor.execute(
-                "INSERT INTO users (username, password) VALUES (%s, %s)", (new_username, new_password))
+                INSERT_NEW_USER, (new_username, new_password))
             self.conn.commit()
             messagebox.showinfo(
                 "Registrasi Berhasil", "Registrasi Berhasil, Silahkan Login!!")
@@ -141,7 +142,7 @@ class LoginWindow:
         scrollbar.pack(side=RIGHT, fill=Y)
         tree.pack(fill=BOTH, expand=True)
 
-        self.cursor.execute("SELECT username, password FROM users")
+        self.cursor.execute(SELECT_ALL_USER_TABLE)
         for user in self.cursor.fetchall():
             tree.insert('', END, values=user)
 

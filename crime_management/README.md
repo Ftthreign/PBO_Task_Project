@@ -84,3 +84,4 @@ Note : This will be update soon, because the contstraint and data type
 - [ ] Consistency Naming Convention
 - [x] Login Feature (Optional)
 - [x] When double click the selected row, it can show modal that shows criminal details
+- [x] Refactor Queries and fix empty data bug
