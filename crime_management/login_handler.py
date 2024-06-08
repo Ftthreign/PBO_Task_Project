@@ -73,7 +73,7 @@ class LoginWindow:
 
         else:
             messagebox.showerror(
-                "Login", "Username atau password salah", messagebox.OK)
+                "Login", "Username atau password salah")
 
     def open_registration_window(self):
         self.registration_window = Toplevel(self.root)
